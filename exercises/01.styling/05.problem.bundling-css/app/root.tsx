@@ -12,8 +12,8 @@ export const links: LinksFunction = () => {
 		{ rel: 'icon', type: 'image/svg+xml', href: faviconAssetUrl },
 		{ rel: 'stylesheet', href: fontStylestylesheetUrl },
 		{ rel: 'stylesheet', href: tailwindStylesheetUrl },
-		{ rel: 'stylesheet', href: cssBundleHref },
-	]
+		cssBundleHref ? { rel: 'stylesheet', href: cssBundleHref } : null,
+	].filter(Boolean)
 }
 
 export default function App() {

@@ -1,4 +1,5 @@
-import { Link, Outlet } from '@remix-run/react'
+import { Link, NavLink, Outlet } from '@remix-run/react'
+import { cn } from '#app/utils/misc.ts'
 
 export default function NotesRoute() {
 	return (
@@ -12,9 +13,14 @@ export default function NotesRoute() {
 						</Link>
 					</li>
 					<li>
-						<Link to="some-note-id" className="underline">
+						<NavLink
+							to="some-note-id"
+							className={({ isActive }) =>
+								cn('underline', isActive && 'bg-accent')
+							}
+						>
 							Some Note
-						</Link>
+						</NavLink>
 					</li>
 				</ul>
 			</div>

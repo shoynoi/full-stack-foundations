@@ -1,5 +1,10 @@
 import { json, type DataFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData } from '@remix-run/react'
+import { Button } from 'exercises__sep__03.loading__sep__02.problem.missing-data/app/components/ui/button.tsx'
+import { floatingToolbarClassName } from '#app/components/floating-toolbar.tsx'
+import { Input } from '#app/components/ui/input.tsx'
+import { Label } from '#app/components/ui/label.tsx'
+import { Textarea } from '#app/components/ui/textarea.tsx'
 import { db } from '#app/utils/db.server.ts'
 import { invariantResponse } from '#app/utils/misc.ts'
 
@@ -22,16 +27,29 @@ export async function loader({ params }: DataFunctionArgs) {
 export default function NoteEdit() {
 	const data = useLoaderData<typeof loader>()
 
-	// 💣 remove this so we can return our form instead
-	return <pre>{JSON.stringify(data, null, 2)}</pre>
-
-	// 🐨 render a Remix Form with the method of "post"
-	// 🐨 render an <label> with the text "Title" and an <input> with the name "title" and defaultValue of data.note.title
-	// 🐨 render an <label> with the text "Content" and an <textarea> with the name "content" and defaultValue of data.note.content
-	// 🐨 render a button with the text "Submit"
-
-	// 💯 as extra credit, you can add a reset button (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)
-	// 💯 as extra credit, you can use the Label, Input, Textarea, and Button components from '#app/components/ui/*.tsx'
-	// 💯 as extra credit, style it nicely with some tailwind classes to give it some space.
-	// 💯 if you *really* have extra time, you can wrap the submit and reset buttons in a div with floatingToolbarClassName from '#app/components/floating-toolbar.tsx' and make that look nice.
+	return (
+		<Form
+			method="post"
+			className="flex h-full flex-col gap-y-4 overflow-x-hidden px-10 pb-28 pt-12"
+		>
+			<div>
+				<Label>
+					Title:
+					<Input name="title" defaultValue={data.note.title} />
+				</Label>
+			</div>
+			<div>
+				<Label>
+					Content:
+					<Textarea name="content" defaultValue={data.note.content} />
+				</Label>
+			</div>
+			<div className={floatingToolbarClassName}>
+				<Button type="reset" variant="destructive">
+					Reset
+				</Button>
+				<Button type="submit">Submit</Button>
+			</div>
+		</Form>
+	)
 }

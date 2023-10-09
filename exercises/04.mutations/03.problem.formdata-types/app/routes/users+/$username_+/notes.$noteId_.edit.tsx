@@ -28,14 +28,15 @@ export async function action({ request, params }: DataFunctionArgs) {
 	const formData = await request.formData()
 	const title = formData.get('title')
 	const content = formData.get('content')
-	// 🐨 add a check to make certain that title and content are both a string
-	// if they are not, throw an error
-	// 💯 as an extra credit, throw a more descriptive 400 Response instead of an error
-	// 💯 as an extra credit, try using the invariantResponse function from "#app/utils/misc.ts"
+	invariantResponse(typeof title === 'string', 'Title must be a string', {
+		status: 400,
+	})
+	invariantResponse(typeof content === 'string', 'Content must be a string', {
+		status: 400,
+	})
 
 	db.note.update({
 		where: { id: { equals: params.noteId } },
-		// @ts-expect-error 🦺 we'll fix this next...
 		data: { title, content },
 	})
 

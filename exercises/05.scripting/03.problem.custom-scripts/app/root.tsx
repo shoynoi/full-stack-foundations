@@ -10,6 +10,7 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from '@remix-run/react'
+import { getEnv } from '#app/utils/env.server.ts'
 import faviconAssetUrl from './assets/favicon.svg'
 import { KCDShop } from './kcdshop.tsx'
 import fontStylestylesheetUrl from './styles/font.css'
@@ -25,8 +26,7 @@ export const links: LinksFunction = () => {
 }
 
 export async function loader() {
-	// 🐨 add an ENV property to this which is the result of calling getEnv()
-	return json({ username: os.userInfo().username })
+	return json({ username: os.userInfo().username, ENV: getEnv() })
 }
 
 export default function App() {
@@ -62,10 +62,14 @@ export default function App() {
 				</div>
 				<div className="h-5" />
 				<ScrollRestoration />
-				{/*
-					🐨 add an inline script here using dangerouslySetInnerHTML which
-					sets window.ENV to the JSON.stringified value of data.ENV
-				*/}
+				<script
+					type="module"
+					dangerouslySetInnerHTML={{
+						__html: `
+			window.ENV = ${JSON.stringify(data.ENV)}
+		`,
+					}}
+				/>
 				<Scripts />
 				<KCDShop />
 				<LiveReload />

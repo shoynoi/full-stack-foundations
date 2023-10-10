@@ -34,16 +34,10 @@ export default function App() {
 	return (
 		<html lang="en" className="h-full overflow-x-hidden">
 			<head>
-				{/*
-					🐨 add <title>
-					(use whatever you'd like for the title)
-					🐨 add <meta> for description
-					(use whatever you'd like for the description)
-					🐨 add <meta> for charSet
-					💰 here's a good charSet value: "utf-8"
-					🐨 add <meta> for and viewport
-					💰 here's a good viewport value: "width=device-width,initial-scale=1"
-				 */}
+				<title>KCDShop</title>
+				<meta name="description" content="This is my page" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta charSet="utf-8" />
 				<Links />
 			</head>
 			<body className="flex h-full flex-col justify-between bg-background text-foreground">
